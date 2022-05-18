@@ -68,15 +68,16 @@ F 5 "1" H 7000 4325 50  0001 C CNN "Populated"
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R42
+L resistors_0603:1-0000678 R42
 U 1 1 5DF763A0
 P 7275 4125
 F 0 "R42" V 7200 4125 50  0000 C CNN
-F 1 "10" V 7275 4125 50  0000 C CNN
+F 1 "1-0000678" V 7275 4125 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 7205 4125 50  0001 C CNN
 F 3 "~" H 7275 4125 50  0001 C CNN
-F 4 "1-0000460" H 7275 4125 50  0001 C CNN "Internal Part Number"
+F 4 "1-0000678" H 7275 4125 50  0001 C CNN "Internal Part Number"
 F 5 "1" H 7275 4125 50  0001 C CNN "Populated"
+F 6 "10" H 7275 4125 50  0001 C CNN "PValue"
 	1    7275 4125
 	0    1    1    0   
 $EndComp
