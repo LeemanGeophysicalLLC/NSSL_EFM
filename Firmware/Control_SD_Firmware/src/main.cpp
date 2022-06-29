@@ -2,6 +2,7 @@
  * Control PCB SD Processor
  * Writes incoming data to the SD card and manages the file names.
  */
+#define CIRCULAR_BUFFER_INT_SAFE // Keep this first!
 
 #include <Arduino.h>
 #include <CircularBuffer.h>
@@ -16,7 +17,7 @@
 
 
 char log_file_name[] = "EFM00.TXT";
-CircularBuffer<char, 500> CharBuffer;
+CircularBuffer<char, 512> CharBuffer;
 File dataFile;
 SdFat sd;
 uint32_t last_write = 0;
@@ -69,23 +70,21 @@ void setup()
   {
     error();
   }
-
   setLogFileName();
+  dataFile = sd.open(log_file_name, FILE_WRITE);
 }
 
 void loop()
 {
-  static uint8_t file_is_open = 1;
-  static uint32_t write_cycles = 100000;
+  uint32_t max_write_cycles = 200000;
+  static uint32_t write_cycles = 0;
 
- while(Serial.available())
+  while(Serial.available())
   {   
-    //digitalWrite(PIN_LED_ERROR, HIGH);
     CharBuffer.push(Serial.read());
-    //digitalWrite(PIN_LED_ERROR, LOW);
   }
 
-  if (write_cycles > 335000)
+  if (write_cycles > max_write_cycles)
   {
     dataFile.close();
     setLogFileName();
@@ -98,7 +97,7 @@ void loop()
     digitalWrite(PIN_LED_ERROR, HIGH);
   }
 
-  if (CharBuffer.size() >= 100)
+  if (CharBuffer.size() > 64)
   {
     digitalWrite(PIN_LED_ACTIVITY, HIGH);
     for (int j=0; j<CharBuffer.size(); j++)
