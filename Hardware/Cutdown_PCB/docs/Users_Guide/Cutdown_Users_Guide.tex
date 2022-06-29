@@ -1,0 +1,250 @@
+
+\documentclass[letter,12pt,oneside,pdflatex,italian,final,twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{parallel}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{hhline}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{textcomp,mathcomp}
+
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.75in]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{libertine}
+\renewcommand*\familydefault{\sfdefault}  %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\usepackage{tabularx}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{www.leemangeophysical.com}
+\chead {10-XXXXXXX}
+\rhead{Balloon Cutdown}
+
+\lfoot{Copyright \copyright 2022, Leeman Geophysical LLC}
+\cfoot{}
+\rfoot{Revision 1.2 \hspace{5pt} Page \thepage \hspace{1pt} of \pageref{LastPage}}
+
+\onecolumn
+
+\begin{center}
+	\includegraphics[width=.6\textwidth,center,]{logo.png}\\
+
+	\includegraphics[width=.7\textwidth,center,]{product.jpg}\\
+	\Huge \textbf{Balloon Cutdown\\}
+	\Large {User's Guide}
+\end{center}
+
+\begin{table}[h!]
+     \begin{center}
+     \begin{tabular}{ p{1.25in}  p{1in} }
+     \includegraphics[height=0.5in,center,]{prop65.png} & \includegraphics[height=0.5in,center,]{choking.png} \\
+     \end{tabular}
+     \end{center}
+\end{table}
+\small
+  
+\newpage
+\tableofcontents
+\newpage
+
+\noindent
+THE MATERIAL CONTAINED IN THIS DOCUMENT IS PROVIDED “AS IS,” AND IS SUBJECT TO BEING CHANGED,
+WITHOUT NOTICE, IN FUTURE EDITIONS. FURTHER, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE
+LAW, LEEMAN GEOPHYSICAL LLC DISCLAIMS ALL WARRANTIES, EITHER EXPRESS OR IMPLIED, WITH REGARD TO THIS MANUAL
+AND ANY INFORMATION CONTAINED HEREIN, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  LEEMAN GEOPHYSICAL LLC SHALL NOT BE LIABLE FOR ERRORS
+OR FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES IN CONNECTION WITH THE FURNISHING, USE, OR
+PERFORMANCE OF THIS DOCUMENT OR OF ANY INFORMATION CONTAINED HEREIN. SHOULD LEEMAN
+GEOPHYSICAL LLC AND THE USER HAVE A SEPARATE WRITTEN AGREEMENT WITH WARRANTY TERMS COVERING
+THE MATERIAL IN THIS DOCUMENT THAT CONFLICT WITH THESE TERMS, THE WARRANTY TERMS IN THE
+SEPARATE AGREEMENT SHALL CONTROL.
+
+
+
+
+\newpage
+\section{Safety Considerations}
+The following general safety precautions must be observed during all phases of operation, service, and repair of this
+instrument. Failure to comply with these precautions or with specific warnings elsewhere in this manual violates
+safety standards of design, manufacture, and intended use of the instrument. Leeman Geophysical LLC assumes no
+liability for the customer's failure to comply with these requirements.
+
+\begin{itemize}
+\item Do not operate the device around flammable gases or fumes, vapor, or wet environments.
+\item Instruments that appear damaged or defective should be made inoperative and secured against unintended
+operation until they can be repaired by qualified service personnel.
+\item Because of the danger of introducing additional hazards, do not install substitute parts or perform any unauthorized
+modification to the instrument. Return the instrument to Leeman Geophysical LLC for service
+and repair to ensure that safety features are maintained.
+\item Use the instrument as specified. If the device is used in a manner not specified by manufacturer, the device protection
+may be impaired.
+\item Read through the operation instructions fully before connecting any wiring to the device.
+\end{itemize}
+
+
+
+
+\newpage
+\section{Introduction}
+Thank you for choosing Leeman Geophysical! This manual will guide you through the setup, operation, and maintenance of your balloon cutdown system. The cutdown was designed over several revisions and building upon the experience of many in the scientific ballooning community to be the most versatile and easy to operate cutdown to date.
+
+\subsection{What's in the Box}
+Upon receipt of your unit, unpack the contents of the box and inspect all parts for any damage incurred during shipping. Immediately report any missing parts or damage to Leeman Geophysical for replacement.
+\begin{itemize}
+	\item Cutdown PCB
+	\item Hotwire Terminal Blocks
+	\item Clear Enclosure Tubes
+	\item Bottom End Cap and Hardware
+	\item Top End Cap
+	\item PCB Spacer
+	\item XBee module (optional)
+\end{itemize}
+
+\subsection{Unit Overview}
+The cutdown module provides multiple methods of flight termination based on time, pressure, external command, or radio command. There are arming and disarming safety measures built in to ensure the unit does not activate until the flight is underway and will not activate if the flight naturally terminates due to balloon failure.
+
+
+
+\section{Installation}
+Setup of the cutdown is simple and takes only a few minutes. You’ll need some basic supplies.
+
+\subsection{What you'll need}
+\begin{itemize}
+	\item Nichrome Wire
+	\item 2x CR123 Batteries
+	\item All enclosure components
+	\item PCB Assembly
+	\item Balloon load cable
+	\item Diagonal Cutters
+\end{itemize}
+%Needs Set Up Instructions%
+%Instructions not written%
+
+
+
+\section{Serial Command Interface}
+The cutdown is set up with a serial menu that can be accessed via the USB Mini-B port on the PCB. You will need to connect to the cutdown with a serial terminal application such as CoolTerm, FreeTerm, etc. System expects a connection of 9600 baud. Once the connection has been established, the cutdown will reboot and display the welcome message.\\
+\textbf{Commands are all followed by a newline character.} Commands are all followed by a newline character.
+\begin{center}
+\begin{tabular}{|l|l|} 
+ \hline
+\textbf{ Command} & \textbf{Description} \\ [0.5ex] 
+ \hline\hline
+SETPRES XXXX & Set the pressure below which the flight will be cutdown. Set in integer hPa. \\
+\hline
+SETTIME XXXX & Set the time after which the flight will be cutdown. Set in integer minutes. \\
+\hline
+SETDUR XXXX & Set the duration that the hotwire will be on during a cutdown cycle. Set in integer seconds. \\
+\hline
+SETID XXX & Set the ID of the cutdown used in radio cutdown commands. Integer 0-255. \\
+\hline
+SETARM & Set the change in pressure required before the cutdown arms. Set in integer hPa. \\
+ \hline
+ SHOW & Show the current configuration. \\
+ \hline
+  HELP & Displays a help menu with a list of available commands. \\
+ \hline
+ DEFAULTS & Resets all stored values to the factory default values. \\
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+
+\section{Operation}
+Once ready to operate with batteries inserted, turn on the power switch. Once turned on the system is disarmed and will not arm until the pressure has decreased by the amount set with the SETARM command. Once armed the system checks every 10 seconds to see if the maximum flight duration, minimum pressure, external input, or radio control conditions have been met. If so the cutdown action will occur and the system will disarm. If the system detects that the pressure has increased by twice that set in SETARM compared to the minimum flight pressure the balloon must be falling naturally and the system will disarm so that no unneeded cutdown happens while on the ground.\\
+\\
+Once ready to operate with batteries inserted, turn on the power switch. Once turned on the system is disarmed and will not arm until the pressure has decreased by the amount set with the SETARM command. Once armed the system checks every 10 seconds to see if the maximum flight duration, minimum pressure, external input, or radio control conditions have been met. If so the cutdown action will occur and the system will disarm. If the system detects that the pressure has increased by twice that set in SETARM compared to the minimum flight pressure the balloon must be falling naturally and the system will disarm so that no unneeded cutdown happens while on the ground.
+
+
+
+
+\section{XBee Network Settings}
+If a new XBee is to be used, the following network settings should be as follows:\\
+CH: C\\
+ID: AD6E\\
+MM: Strict 802.15.4. No ACKs [1]\\
+NI: Cutdown X (your unit number)\\
+CE: End Device [0]\\
+AP: Transparent Mode [0]\\
+BD: 9600 [3]\\
+Everything else should be left at the default settings. As of the writing of this manual the radios are running the XB3-24 Family Digi XBee3 802.15.4 TH Version 200C firmware.
+
+\newpage
+\section{Warranty}
+Thank you for purchasing products and services from Leeman Geophysical LLC! We are proud to offer a limited warranty for our product.\\
+
+\noindent
+\textbf{What does this warranty cover?}\\
+\noindent
+The limited warranty covers any defects in materials or workmanship under normal use during the warranty period. During the warranty
+period, Leeman Geophysical will repair or replace, at no charge, products or components of a product which are defective and meet
+these conditions. \\
+
+\noindent
+\textbf{What will we do to correct a problem?}\\
+Leeman Geophysical LLC will either repair or replace the product at no charge using new or refurbished replacement parts.\\
+
+\noindent
+\textbf{How long does the coverage last?}\\
+The warranty period covers products for 90 days from the date of purchase.\\
+
+\noindent
+\textbf{What does this warranty not cover?}\\
+This limited warranty does not cover:
+\begin{itemize}
+\item Conditions, malfunctions, or damage not resulting from defects in material or workmanship.
+\item This warranty does not cover any connected equipment or damages resulting from the failure of any components for any reason.\\
+\end{itemize}
+
+\noindent
+\textbf{What do you have to do?}\\
+To obtain warranty service, you must first contact us to determine the problem and the most appropriate course of action to solve the
+problem. We can be reached by phone, email, or written communication.\\
+
+\begin{centering}
+Leeman Geophysical LLC\\
+850 South Lincoln St.\\
+Siloam Springs, AR 72761\\
+479-373-3736\\
+support@leemangeophysical.com\\
+\end{centering}
+
+
+
+%Needs Info%
+\newpage
+
+\section{Revision History}
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|}
+\hline
+Revision & Date & Changes \\ \hline
+1.2 & 5/6/22 & Document Format Changed \\ \hline
+1.1 & 1/21/21 & - \\ \hline
+\end{tabular}
+\end{table}
+
+
+\end{document}
+
+
+
