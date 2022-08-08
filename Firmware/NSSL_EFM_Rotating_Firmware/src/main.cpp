@@ -31,6 +31,8 @@ void setup()
   //debugSerial.println("NSSL Rotating Electronics");
 
   // Setup the IMU
+  // NOTE it is VERY important that begin be called before any configuration takes place
+  // or it will not take!
   if(!lsm.begin())
   {
     //debugSerial.println("Error starting IMU.");
@@ -51,7 +53,7 @@ void setup()
   adc.setOpMode(0);
   // Set to continuous conversion mode
   adc.setConversionMode(1);
-  // Set to 20 Hz data rate
+  // Set to 45 Hz data rate
   adc.setDataRate(0x01);
   // Use the internal 2.048V reference
   adc.setVoltageRef(0);
