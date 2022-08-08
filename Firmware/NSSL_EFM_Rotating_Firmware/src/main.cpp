@@ -31,13 +31,13 @@ void setup()
   //debugSerial.println("NSSL Rotating Electronics");
 
   // Setup the IMU
-  lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_4G);
-  lsm.setupMag(lsm.LSM9DS1_MAGGAIN_4GAUSS);
-  lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_2000DPS);
   if(!lsm.begin())
   {
     //debugSerial.println("Error starting IMU.");
   }
+  lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_4G);
+  lsm.setupMag(lsm.LSM9DS1_MAGGAIN_4GAUSS);
+  lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_2000DPS);
 
   // Setup the Temperature/Humidity sensor
   if(!bme.begin(0x76, &Wire))
@@ -52,7 +52,7 @@ void setup()
   // Set to continuous conversion mode
   adc.setConversionMode(1);
   // Set to 20 Hz data rate
-  adc.setDataRate(0x00);
+  adc.setDataRate(0x01);
   // Use the internal 2.048V reference
   adc.setVoltageRef(0);
   // Turn off the FIR filters
