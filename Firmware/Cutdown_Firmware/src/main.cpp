@@ -535,8 +535,30 @@ void loop()
   
     // If the flight has been terminated then we are just along for the ride - turn on the
     // error so we are not accidently relaunched!
+    // We do still need to respond to external manual commands though. They can execute as 
+    // many times as the user wants them to!
     case FLIGHT_COMPLETE:
       digitalWrite(PIN_LED_ERROR, HIGH);
+
+      // Check for XBee cutdown signal
+      if (xbee_cutdown())
+      {
+        Serial.println("XBee Cutdown Received");
+        #ifdef ENABLE_DEBUG
+        xbeeSerial.println("XBee Cutdown Received");
+        #endif
+        execute_cutdown();
+      }
+
+      // Check for external cutdown signal
+      if (external_cutdown())
+      {
+        Serial.println("External Cutdown Received");
+        #ifdef ENABLE_DEBUG
+        xbeeSerial.println("External Cutdown Received");
+        #endif
+        execute_cutdown();
+      }
       break;
 
     default:
