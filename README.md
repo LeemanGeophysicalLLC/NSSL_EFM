@@ -138,7 +138,7 @@ You can un-jumper and connect a USB to 3.3V logic cable here to program the XBee
 * [Mechancial Drawing](PCBs/Control_PCB/PDFs/pcb.pdf)
 
 ### CR123 Battery PCBA
-![CR123 PCBA](PCBs/CR123_Battery_PCB/Renders/PCB_Front.png)
+![CR123 PCBA](PCBs/CR123_Battery_PCB/Renders/pcb_front.png)
 
 This PCB is used for power of most items in the EFM for convenience. We tried CR2 batteries
 and there is a CR2 board in the repository history, but they didn't have the capacity for all
