@@ -17,25 +17,43 @@
 #include "utility/imumaths.h"
 #include <SoftwareSerial.h>
 
+//#define ENABLE_DEBUG // Turn on for testing/debug and off for shipping
+//# define ADC_DEBUG // Turn on for ADC only testing/degbug output
+
 Adafruit_BME280 bme;
 Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1();
 ADS1220 adc;
-//SoftwareSerial debugSerial(PB12, PB13); // RX, TX
+
+#ifdef ENABLE_DEBUG
+SoftwareSerial debugSerial(PB12, PB13); // RX, TX
+#endif
+
+#ifdef ADC_DEBUG
+SoftwareSerial debugSerial(PB12, PB13); // RX, TX
+#endif
 
 void setup()
 {
   // Setup serial communications
   Serial.begin(38400);
-  //debugSerial.begin(19200);
+  #ifdef ENABLE_DEBUG
+  debugSerial.begin(19200);
+  debugSerial.println("NSSL Rotating Electronics");
+  #endif
 
-  //debugSerial.println("NSSL Rotating Electronics");
+  #ifdef ADC_DEBUG
+  debugSerial.begin(19200);
+  debugSerial.println("ADC TEST");
+  #endif
 
   // Setup the IMU
   // NOTE it is VERY important that begin be called before any configuration takes place
   // or it will not take!
   if(!lsm.begin())
   {
-    //debugSerial.println("Error starting IMU.");
+    #ifdef ENABLE_DEBUG
+    debugSerial.println("Error starting IMU.");
+    #endif
   }
   lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_4G);
   lsm.setupMag(lsm.LSM9DS1_MAGGAIN_4GAUSS);
@@ -44,7 +62,9 @@ void setup()
   // Setup the Temperature/Humidity sensor
   if(!bme.begin(0x76, &Wire))
   {
-    //debugSerial.println("Error starting BME280 sensor.");
+    #ifdef ENABLE_DEBUG
+    debugSerial.println("Error starting BME280 sensor.");
+    #endif
   }
 
   // Setup the ADC
@@ -144,6 +164,44 @@ void loop()
   serialWriteuint16(relative_humidity); // Packet Byte 29-30
   serialWriteuint16(pressure_pa); // Packet Byte 31-32
   Serial.write(0xEF); // Packet Byte 33
+
+  #ifdef ENABLE_DEBUG
+  debugSerial.print(millis());
+  debugSerial.print("\t");
+  debugSerial.print(adc_ready_time);
+  debugSerial.print("\t");
+  debugSerial.print(adc_reading);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.magData.x);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.magData.y);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.magData.z);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.gyroData.x);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.gyroData.y);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.gyroData.z);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.accelData.x);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.accelData.y);
+  debugSerial.print("\t");
+  debugSerial.print((int16_t)lsm.accelData.z);
+  debugSerial.print("\t");
+  debugSerial.print(temperature_degC);
+  debugSerial.print("\t");
+  debugSerial.print(relative_humidity);
+  debugSerial.print("\t");
+  debugSerial.println(pressure_pa);
+  #endif
+
+  #ifdef ADC_DEBUG
+  debugSerial.print(adc_ready_time);
+  debugSerial.print("\t");
+  debugSerial.println((int32_t)adc_reading);
+  #endif
 
   loop_counter += 1;
   if (loop_counter == 100)

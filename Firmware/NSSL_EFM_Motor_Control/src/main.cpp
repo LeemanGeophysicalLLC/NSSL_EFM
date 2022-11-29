@@ -27,8 +27,8 @@ char tone_system_enable = 1;
 double setpoint = 120; // Target RPM for the motor
 double feedback = 0; // Feedback for the motor PID
 double pwm_output = 80; // Output from the PID
-double pid_kp=1.0;
-double pid_ki=0.1;
+double pid_kp=0.5;
+double pid_ki=0.07;
 double pid_kd=0.0;
 uint16_t motor_current_limit = 300; // mA limit before motor cutoff
 

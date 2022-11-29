@@ -1,3 +1,4 @@
 (sym_lib_table
-  (lib (name lib_sch)(type Legacy)(uri ${KIPRJMOD}/lib_sch.lib)(options "")(descr ""))
+  (lib (name "lib_sch")(type "Legacy")(uri "${KIPRJMOD}/lib_sch.lib")(options "")(descr ""))
+  (lib (name "tracker-rescue")(type "Legacy")(uri "${KIPRJMOD}/tracker-rescue.lib")(options "")(descr ""))
 )

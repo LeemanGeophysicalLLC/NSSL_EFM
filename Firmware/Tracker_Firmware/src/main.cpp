@@ -35,7 +35,7 @@ SoftwareSerial gpsSerial(PIN_GPS_SERIAL_RX, PIN_GPS_SERIAL_TX);
 TinyGPSPlus gps;
 IridiumSBD modem(Serial);
 
-uint8_t unit_id = 3;
+uint8_t unit_id = 17;
 char tx_buffer[65];
 uint8_t rx_buffer[65];
 
@@ -192,7 +192,7 @@ void setup()
   xbeeSerial.begin(9600);
   gpsSerial.begin(9600);
   delay(1000);
-  xbeeSerial.println("HELLO WORLD");
+
   // Make sure the GPS is in high altitude mode - Normally we'd look for the ACK, but we're
   // missing it with SoftwareSerial I think - same code works on the control paddle. Until
   // shown to be wrong, we'll asssume this is setting things to high altitude mode.
