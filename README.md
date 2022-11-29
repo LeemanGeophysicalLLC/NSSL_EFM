@@ -92,6 +92,7 @@ We use the plastic cable from Industrial Fiberoptics, part [GH4001](https://www.
 ## Circuit Boards
 ### Analog PCBA
 ![Analog PCBA](PCBs/Analog_PCB/Renders/PCB_Front.png)
+
 The analog PCBA is really the heart of the EFM and what everything else is in service of. It is
 a simple charge amplifier and filter. This design is basically a direct copy of the old EFM
 as the charge amplifeir and filter were working just fine. We did some pretty extensive
@@ -104,6 +105,7 @@ dependence of the amplifier and filter.
 
 ### Control PCBA
 ![Control PCBA](PCBs/Control_PCB/Renders/PCB_Front.png)
+
 The control PCBA manages the GPS, data logging, and transmitter. This board is easily the most
 complex and expensive of the entire unit. There are three processors on the board. While this
 is gross overkill, it allows us to easily modify the behavior, move workload, and change
@@ -130,22 +132,26 @@ a few cases even prevent lock.
 
 The two sets of pins with * by the on J4 should be jumpered for the XBee radio to transmit.
 You can un-jumper and connect a USB to 3.3V logic cable here to program the XBee radio.
+
 * [KiCAD Project](PCBs/Control_PCB/KiCAD_Project)
 * [PDF schematic](PCBs/Control_PCB/PDFs/schematic.pdf)
 * [Mechancial Drawing](PCBs/Control_PCB/PDFs/pcb.pdf)
 
 ### CR123 Battery PCBA
 ![CR123 PCBA](PCBs/CR123_Battery_PCB/Renders/PCB_Front.png)
+
 This PCB is used for power of most items in the EFM for convenience. We tried CR2 batteries
 and there is a CR2 board in the repository history, but they didn't have the capacity for all
 applications and we didn't want to have yet another battery type on-board. There isn't much
 to this board.
+
 * [KiCAD Project](PCBs/CR123_Battery_PCB/KiCAD_Project)
 * [PDF schematic](PCBs/CR123_Battery_PCB/PDFs/schematic.pdf)
 * [Mechancial Drawing](PCBs/CR123_Battery_PCB/PDFs/pcb.pdf)
 
 ### Digital PCBA
 ![Digital PCBA](PCBs/Digital_PCB/Renders/PCB_Front.png)
+
 The digital PCBA provides power to the analog PCBA, digitizes the charge amplifier, collects
 IMU data, temperature, pressure, humidity, and sends it all down the fiber to the control
 PCBA in the end foam. This PCB is relatively complex and has multiple IMU footprints as
@@ -154,12 +160,14 @@ and over. There is also a delay turn on circuit to help debounce the switch, but
 populated in the November 2022 batch as the parts were not available. Performance did not
 appear to be impacted. There is an LED (D2) that mirrors the fiber sender for easy visual
 confirmatino that data are being sent.
+
 * [KiCAD Project](PCBs/Digital_PCB/KiCAD_Project)
 * [PDF schematic](PCBs/Digital_PCB/PDFs/schematic.pdf)
 * [Mechancial Drawing](PCBs/Digital_PCB/PDFs/pcb.pdf)
 
 ### Motor Control PCBA
 ![Motor Control PCBA](PCBs/Motor_Control_PCB/Renders/PCB_Front.png)
+
 The motor control PCBA controls the PWM speed signal to the motor, which is a [DFRobot
 FIT0441](https://www.digikey.com/en/products/detail/dfrobot/FIT0441/6588579), by reading
 the motor's built in encoder. We target 120 RPM for the motor speed. In the November 2022
@@ -170,15 +178,18 @@ investigation.
 This board also houses a tone system which can be turned on to play a series of tones after
 the motor has been detected as stalled. The motor cutoff on stall can be enabled or disabled.
 At NSSL's request, if enabled, the motor will attempt to restart after approximately 1 minute.
+
 * [KiCAD Project](PCBs/Motor_Control_PCB/KiCAD_Project)
 * [PDF schematic](PCBs/Motor_Control_PCB/PDFs/schematic.pdf)
 * [Mechancial Drawing](PCBs/Motor_Control_PCB/PDFs/pcb.pdf)
 
 ### Tracker PCBA
-![Tracker PCBA](PCBs/Tracker_PCB/Renders/PCB_Front.png)
+![Tracker PCBA](PCBs/Tracker_PCB/Renders/pcb_front.png)
+
 The tracker is designed to radio a GPS position and altitude to the Rock7 satellite network
 to help with getting the instrument back. It also passes cutdown messages to the cutdown
 module from satellite via a short-range XBee link.
+
 * [KiCAD Project](PCBs/Tracker_PCB/KiCAD_Project)
 * [PDF schematic](PCBs/Tracker_PCB/PDFs/schematic.pdf)
 * [Mechancial Drawing](PCBs/Tracker_PCB/PDFs/pcb.pdf)
