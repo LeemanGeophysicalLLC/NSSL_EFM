@@ -33,8 +33,6 @@
       3,
       4,
       5,
-      6,
-      7,
       8,
       9,
       10,
@@ -64,11 +62,11 @@
       35,
       36
     ],
-    "visible_layers": "001ffff_80000007",
+    "visible_layers": "ffcffff_ffffffff",
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "digital_pcb.kicad_prl",
+    "filename": "Digital_PCB.kicad_prl",
     "version": 3
   },
   "project": {
