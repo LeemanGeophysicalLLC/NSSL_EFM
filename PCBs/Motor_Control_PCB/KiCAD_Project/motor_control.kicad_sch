@@ -3132,7 +3132,7 @@
 	)
 	(text "Motor"
 		(exclude_from_sim no)
-		(at 94.615 101.6 90)
+		(at 92.964 101.346 90)
 		(effects
 			(font
 				(size 1.27 1.27)
