@@ -21,9 +21,6 @@
 // Iridium library diagnostic messages
 #define DIAGNOSTICS false
 
-// Set ms to send iridium messages
-#define TELEMETRY_MS 120000
-
 #include <Arduino.h>
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
@@ -38,6 +35,12 @@ IridiumSBD modem(Serial);
 uint8_t unit_id = 17;
 char tx_buffer[65];
 uint8_t rx_buffer[65];
+
+// Determine the telemetry interval, 2 minutes for the first 90 minutes, then
+// down to every 10 minutes.
+uint32_t fast_telemetry_ms = 120000;
+uint32_t slow_telemetry_ms = 600000;
+uint32_t n_packets_change_rate = 90 / (fast_telemetry_ms / 60 / 1000);
 
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
@@ -322,13 +325,21 @@ void loop()
   // transmit/receive function to send position and check messages.
   static uint32_t last_tx_millis = 0;
   static char first_tx = 1;
+  static uint32_t number_packets_sent = 0;
 
   // Feed the GPS characters to the parser so we are always up to date
   update_gps();
 
+  uint32_t TELEMETRY_MS = slow_telemetry_ms;
+  if (number_packets_sent < n_packets_change_rate)
+  {
+    TELEMETRY_MS = fast_telemetry_ms;
+  }
+
   // If it's been more than the set interval since we last sent telemetry - we do it!
   if (((millis() - last_tx_millis) > TELEMETRY_MS) || first_tx)
   {
+    number_packets_sent += 1;
     last_tx_millis = millis();
     first_tx = 0;
     tx_rx_tracking();
